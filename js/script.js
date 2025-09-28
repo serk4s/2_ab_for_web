@@ -1,32 +1,28 @@
 $(document).ready(function() {
-    // Используем строгий режим
     "use strict";
 
-    // Плавное появление всех секций при загрузке страницы
-    $('section').hide().fadeIn(800);
+    // 1. Простая анимация: Плавное появление всех секций при загрузке страницы
+    $('section').css('opacity', 0).delay(200).each(function(i) {
+        $(this).delay(i * 50).animate({ opacity: 1 }, 400);
+    });
 
     /* ================================================= */
-    /* 1. Динамическое Портфолио (Загрузка из JSON) */
+    /* 2. Динамическое Портфолио (Загрузка из JSON) */
     /* ================================================= */
     function renderPortfolio(data) {
         const $portfolioGrid = $('#portfolio .portfolio-grid');
-        $portfolioGrid.empty(); // Очищаем статический контент
+        $portfolioGrid.empty();
 
         $.each(data, function(index, item) {
-            // Условие для асимметрии (Проект 3, и любые с флагом is_large: true)
-            const isLarge = item.is_large || index === 2; // index 2 - это Проект 3
+            // Асимметрия: третий элемент (индекс 2) или элемент с флагом is_large занимает 2 колонки
+            const isLarge = item.is_large || index === 2;
 
             const $item = $('<div>', {
                 class: 'portfolio-item' + (isLarge ? ' large-item' : '')
             });
 
-            // Добавляем заголовок
             $('<h3>').text(item.title).appendTo($item);
-
-            // Добавляем описание
             $('<p>').text(item.description).appendTo($item);
-
-            // Добавляем ссылку
             $('<a>', {
                 href: item.link,
                 target: '_blank',
@@ -35,39 +31,34 @@ $(document).ready(function() {
 
             $item.appendTo($portfolioGrid);
         });
-
-        // Добавляем класс для асимметрии (нужно, чтобы CSS работал для динамического элемента)
-        if ($('.large-item').length === 0) {
-            $portfolioGrid.find('.portfolio-item').eq(2).addClass('large-item');
-        }
     }
 
-    // Загрузка данных из JSON
-    $.getJSON('/Users/main/WebstormProjects/2_lab_for_web/data/portfolio.json', function(data) {
+    // ИСПРАВЛЕНИЕ ПУТИ: Используем 'data/portfolio.json' относительно index.html
+    $.getJSON('data/portfolio.json', function(data) {
         renderPortfolio(data);
     }).fail(function() {
-        console.error("Не удалось загрузить portfolio.json. Проверьте путь.");
-        $('#portfolio .portfolio-grid').html('<p style="text-align: center;">Не удалось загрузить проекты. Проверьте путь (../data/portfolio.json) и содержимое JSON-файла.</p>');
+        console.error("Не удалось загрузить portfolio.json. Проверьте путь и файл.");
+        $('#portfolio .portfolio-grid').html('<p style="text-align: center; color: var(--color-accent); padding: 20px;">❌ Ошибка загрузки портфолио. Проверьте, что файл data/portfolio.json существует и корректен.</p>');
     });
 
 
     /* ================================================= */
-    /* 2. Модальное Окно и Форма Обратной Связи */
+    /* 3. Модальное Окно и Форма Обратной Связи */
     /* ================================================= */
-    const $modal = $('#contactModal'); // Селектор модального окна
+    const $modal = $('#contactModal');
     const $form = $('#contactForm');
     const $formStatus = $('#formStatus');
 
-    // Открытие модального окна
+    // Открытие модального окна (исправляет некликабельность кнопки)
     $('#openModalButton').on('click', function() {
-        $modal.fadeIn(300); // Плавное появление
-        $formStatus.hide().empty(); // Сброс статуса
-        $form.trigger('reset'); // Очистка формы
+        $modal.fadeIn(300);
+        $formStatus.hide().empty();
+        $form.trigger('reset').find('input, textarea').removeClass('error-field');
     });
 
     // Закрытие по крестику
     $('.close-modal').on('click', function() {
-        $modal.fadeOut(300); // Плавное исчезновение
+        $modal.fadeOut(300);
     });
 
     // Закрытие по оверлею
@@ -77,7 +68,7 @@ $(document).ready(function() {
         }
     });
 
-    // Валидация и симуляция отправки формы
+    // 4. Валидация и симуляция отправки формы
     $form.on('submit', function(e) {
         e.preventDefault();
 
@@ -86,17 +77,14 @@ $(document).ready(function() {
         const email = $('#email').val().trim();
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-        // Сброс ошибок
         $form.find('input').removeClass('error-field');
         $formStatus.hide().empty();
 
-        // Проверка имени
         if (name === "") {
             $('#name').addClass('error-field');
             isValid = false;
         }
 
-        // Проверка email
         if (email === "" || !emailRegex.test(email)) {
             $('#email').addClass('error-field');
             isValid = false;
@@ -108,20 +96,17 @@ $(document).ready(function() {
             $('#submitButton').prop('disabled', true).text('ОТПРАВКА...');
 
             $.ajax({
-                url: 'https://httpbin.org/post', // Эндпоинт для симуляции POST
+                url: 'https://httpbin.org/post', // Тестовый эндпоинт
                 type: 'POST',
-                data: $form.serialize(), // Собираем данные формы
+                data: $form.serialize(),
                 dataType: 'json',
-                timeout: 1000 // Симуляция задержки 1 секунда
-            }).done(function(response) {
-                // Успешный ответ
+                timeout: 1500
+            }).done(function() {
                 $formStatus.text('✅ Сообщение успешно отправлено!').css('color', 'var(--color-text)');
                 $form.trigger('reset');
             }).fail(function() {
-                // Ошибка
-                $formStatus.text('❌ Ошибка отправки. Попробуйте позже.').css('color', '#ff0000');
+                $formStatus.text('❌ Ошибка отправки.').css('color', '#ff0000');
             }).always(function() {
-                // В любом случае
                 $('#submitButton').prop('disabled', false).text('ОТПРАВИТЬ');
             });
 
@@ -130,12 +115,12 @@ $(document).ready(function() {
         }
     });
 
+
     /* ================================================= */
-    /* 3. Кнопка "Наверх" (Scroll To Top) */
+    /* 5. Кнопка "Вверх" (Плавный скролл) */
     /* ================================================= */
     const $scrollToTop = $('#scrollToTop');
 
-    // Появление/скрытие кнопки
     $(window).on('scroll', function() {
         if ($(this).scrollTop() > 300) {
             $scrollToTop.fadeIn(200);
@@ -144,27 +129,17 @@ $(document).ready(function() {
         }
     });
 
-    // Плавный скролл при клике
     $scrollToTop.on('click', function() {
-        $('html, body').animate({scrollTop: 0}, 600);
+        $('html, body').animate({scrollTop: 0}, 600); // Плавный скролл
     });
 
 
     /* ================================================= */
-    /* 4. Выпадающее Меню (Мобильная версия) */
+    /* 6. Выпадающее Меню (Гамбургер) */
     /* ================================================= */
-    // Создаем кнопку для мобильного меню
-    const $mobileMenuButton = $('<button>', {
-        id: 'mobileMenuButton',
-        html: '&#9776;' // Гамбургер-иконка
-    });
-
-    // Вставляем кнопку рядом с заголовком
-    $('header h1').after($mobileMenuButton);
-
-    // Обработчик клика
-    $mobileMenuButton.on('click', function() {
-        $('header nav ul').slideToggle(300); // Плавное открытие/закрытие
+    // Кнопка добавляется в HTML в пункте 2.2
+    $('#mobileMenuButton').on('click', function() {
+        $('header nav ul').slideToggle(300); // Используем slideToggle
     });
 
     // Закрытие меню после клика на ссылку в мобильной версии
@@ -176,18 +151,18 @@ $(document).ready(function() {
 
 
     /* ================================================= */
-    /* 5. Подсветка Активного Пункта Меню при Скролле */
+    /* 7. Подсветка Активного Пункта Меню при Скролле */
     /* ================================================= */
     const $navLinks = $('nav a');
     const $sections = $('section');
 
-    // Обновление активного класса
     function updateActiveLink() {
         const scrollPos = $(document).scrollTop();
 
         $sections.each(function() {
             const $currentSection = $(this);
-            const sectionTop = $currentSection.offset().top - 80; // Смещение для хедера
+            // Учитываем высоту хедера и небольшой запас
+            const sectionTop = $currentSection.offset().top - 100;
             const sectionBottom = sectionTop + $currentSection.outerHeight();
             const sectionId = $currentSection.attr('id');
 
@@ -196,32 +171,36 @@ $(document).ready(function() {
                 $('nav a[href="#' + sectionId + '"]').addClass('active');
             }
         });
-
-        // Если находимся в самом верху (перед первой секцией)
-        if (scrollPos < $('#about').offset().top - 80) {
-            $navLinks.removeClass('active');
-            $('nav a[href="#about"]').addClass('active');
-        }
     }
 
     $(window).on('scroll', updateActiveLink);
-    // Выполняем при загрузке
+    // Инициализация при загрузке
     updateActiveLink();
 
 
     /* ================================================= */
-    /* 6. Карусель Навыков */
+    /* 8. Карусель Навыков */
     /* ================================================= */
     const $carousel = $('.skills-carousel');
     const $skillsList = $('.skills-list');
     const $skills = $skillsList.children('div');
-    const skillWidth = $skills.outerWidth(true); // Ширина элемента + margin
+
+    // Если элементов нет, прекращаем
+    if ($skills.length === 0) return;
+
+    let skillWidth = $skills.first().outerWidth(true);
     let currentIndex = 0;
 
-    if ($skills.length > 0) {
-        // Устанавливаем ширину списка для flexbox (нужно для корректной прокрутки)
+    // Устанавливаем ширину списка для flexbox
+    $skillsList.css('width', $skills.length * skillWidth);
+
+    // Пересчитываем ширину при изменении размера окна
+    $(window).on('resize', function() {
+        skillWidth = $skills.first().outerWidth(true);
         $skillsList.css('width', $skills.length * skillWidth);
-    }
+        updateCarousel(); // Сброс позиции при изменении размера
+    });
+
 
     function updateCarousel() {
         const offset = -currentIndex * skillWidth;
@@ -232,7 +211,7 @@ $(document).ready(function() {
         $('#nextSkill').prop('disabled', currentIndex >= $skills.length - 1);
     }
 
-    // Обработчики кнопок
+    // Кнопка "СЛЕДУЮЩИЙ"
     $('#nextSkill').on('click', function() {
         if (currentIndex < $skills.length - 1) {
             currentIndex++;
@@ -240,6 +219,7 @@ $(document).ready(function() {
         }
     });
 
+    // Кнопка "ПРЕДЫДУЩИЙ"
     $('#prevSkill').on('click', function() {
         if (currentIndex > 0) {
             currentIndex--;
@@ -250,25 +230,24 @@ $(document).ready(function() {
     // Автопрокрутка
     let autoScrollInterval = setInterval(function() {
         if (currentIndex < $skills.length - 1) {
-            $('#nextSkill').trigger('click');
+            currentIndex++;
         } else {
-            // Переход к первому элементу
-            currentIndex = -1; // Чтобы при следующем клике сработал index 0
-            $('#nextSkill').trigger('click');
+            currentIndex = 0;
         }
+        updateCarousel();
     }, 4000); // Автопрокрутка каждые 4 секунды
 
-    // Остановить автопрокрутку при наведении на карусель
+    // Остановить автопрокрутку при наведении
     $carousel.on('mouseenter', function() {
         clearInterval(autoScrollInterval);
     }).on('mouseleave', function() {
         autoScrollInterval = setInterval(function() {
             if (currentIndex < $skills.length - 1) {
-                $('#nextSkill').trigger('click');
+                currentIndex++;
             } else {
-                currentIndex = -1;
-                $('#nextSkill').trigger('click');
+                currentIndex = 0;
             }
+            updateCarousel();
         }, 4000);
     });
 

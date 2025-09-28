@@ -43,19 +43,18 @@ $(document).ready(function() {
     }
 
     // Загрузка данных из JSON
-    $.getJSON('data/portfolio.json', function(data) {
+    $.getJSON('/Users/main/WebstormProjects/2_lab_for_web/data/portfolio.json', function(data) {
         renderPortfolio(data);
     }).fail(function() {
-        console.error("Не удалось загрузить portfolio.json");
-        // Опционально: показать сообщение об ошибке пользователю
-        $('#portfolio .portfolio-grid').html('<p style="text-align: center;">Не удалось загрузить проекты.</p>');
+        console.error("Не удалось загрузить portfolio.json. Проверьте путь.");
+        $('#portfolio .portfolio-grid').html('<p style="text-align: center;">Не удалось загрузить проекты. Проверьте путь (../data/portfolio.json) и содержимое JSON-файла.</p>');
     });
 
 
     /* ================================================= */
     /* 2. Модальное Окно и Форма Обратной Связи */
     /* ================================================= */
-    const $modal = $('#contactModal');
+    const $modal = $('#contactModal'); // Селектор модального окна
     const $form = $('#contactForm');
     const $formStatus = $('#formStatus');
 

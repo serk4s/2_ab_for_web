@@ -88,17 +88,18 @@
                 <a href="https://github.com/serk4s" target="_blank">GITHUB</a>
 
                 <button id="openModalButton" style="
-            background: none;
-            border: 2px solid var(--color-accent);
-            color: var(--color-accent);
-            padding: 10px 20px;
-            margin-top: 15px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: var(--font-primary);
-            transition: all 0.1s linear;
-        ">ОСТАВИТЬ СООБЩЕНИЕ</button>
+                    /* Используем встроенные стили, чтобы не портить внешний вид */
+                    background: none;
+                    border: 2px solid var(--color-accent);
+                    color: var(--color-accent);
+                    padding: 10px 20px;
+                    margin-top: 15px;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-family: var(--font-primary);
+                    transition: all 0.1s linear;
+                ">ОСТАВИТЬ СООБЩЕНИЕ</button>
 
             </address>
         </div>
@@ -112,14 +113,39 @@
     </div>
 </footer>
 
-<script>
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawR/h/+K97JvM/WpGj/6T5z4pC/J+e+rB/pY="
+        crossorigin="anonymous"></script>
+
+<script src="js/script.js"></script>
+
+<button id="scrollToTop" title="Наверх">▲</button>
+
+
+<div id="contactModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>ФОРМА ОБРАТНОЙ СВЯЗИ</h2>
+
+        <form id="contactForm">
+            <label for="name">Имя*:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email*:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Сообщение:</label>
+            <textarea id="message" name="message"></textarea>
+
+            <button type="submit" id="submitButton">ОТПРАВИТЬ</button>
+            <p id="formStatus" style="display: none; margin-top: 15px; font-size: 0.9em;"></p>
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
 
 </body>
 </html>

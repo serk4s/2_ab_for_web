@@ -87,7 +87,503 @@ h2::before {
     position: absolute;
     top: -5px;
     left: 0;
-    width: 100%;
+    width: 100%;/* ======================== */
+    /* 1. Общие стили и переменные (Матовый Авангард) */
+    /* ======================== */
+    :root {
+        /* Цвета: Глубокий, строгий монохром */
+        --color-primary: #0f0f0f;      /* Глубокий, почти черный фон */
+        --color-secondary: #1a1a1a;    /* Фон карточек и хедера */
+        --color-text: #f0f0f0;         /* Почти белый текст */
+        --color-accent: #999999;       /* Сырой, светлый акцент */
+        --color-border: #444444;       /* Строгая, матовая граница */
+        --color-hover-bg: #222222;     /* Фон при наведении */
+
+        /* Типографика: Чертежный/Программистский шрифт */
+        --font-primary: 'Space Mono', 'Roboto Mono', monospace;
+    }
+
+    body {
+        font-family: var(--font-primary);
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        color: var(--color-text);
+        min-width: 320px;
+        font-size: 1.1rem;
+
+        /* ФОН: ЧЕРТЕЖНАЯ СЕТКА (Светлые линии на темном фоне) */
+        background-color: var(--color-primary);
+        background-image:
+            /* Вертикальные линии */
+                linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                    /* Горизонтальные линии */
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+        background-size: 20px 20px; /* Размер клетки: 20x20 */
+        filter: none;
+    }
+
+    /* Сброс стандартных стилей */
+    a {
+        color: var(--color-accent);
+        text-decoration: none;
+        transition: color 0.1s linear; /* Резкий переход */
+    }
+
+    a:hover {
+        color: var(--color-text);
+    }
+
+    /* Контейнер: Ограничиваем контент */
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 40px;
+    }
+
+    /* Применение асимметрии к основному контенту */
+    main .container {
+        padding-left: 80px; /* Большой отступ слева */
+        padding-right: 40px; /* Обычный справа */
+    }
+
+    /* Строгие, тонкие заголовки */
+    h1, h2 {
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    /* Заголовки секций: "Сломанный" контейнер (кроме секции About и Contacts) */
+    h2 {
+        text-align: left;
+        margin-bottom: 70px;
+        color: var(--color-text);
+        padding-top: 20px;
+        font-size: 2.5rem;
+
+        /* Асимметрия: сдвиг влево */
+        margin-left: -40px;
+        padding-left: 40px;
+
+        /* Для позиционирования линии (Brutalism) */
+        position: relative;
+    }
+
+    /* Линия-разделитель (псевдоэлемент) */
+    h2::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: 0;
+        width: 100%;
+        border-top: 2px solid var(--color-border);
+        z-index: -1;
+    }
+
+    section {
+        padding: 100px 0;
+        background-color: transparent;
+    }
+
+
+    /* ======================== */
+    /* 2. Header & Навигация (Flexbox) */
+    /* ======================== */
+    header {
+        background-color: var(--color-secondary);
+        color: white;
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    /* Анимированная линия хедера (резкая) */
+    header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: var(--color-border);
+        transition: background-color 0.1s linear, height 0.1s linear;
+    }
+
+    header:hover::after {
+        background-color: var(--color-text);
+        height: 2px;
+    }
+
+    header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+        margin: 0;
+        text-transform: none;
+        letter-spacing: 0;
+    }
+
+    nav ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        gap: 30px;
+        margin: 0;
+    }
+
+    nav a {
+        color: var(--color-accent);
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        padding-bottom: 5px;
+        transition: color 0.1s linear;
+    }
+    nav a:hover {
+        color: var(--color-text);
+    }
+
+    /* Выделение активной ссылки (JS-интерактивность) */
+    nav a.active {
+        color: var(--color-text);
+        border-bottom: 2px solid var(--color-text);
+        padding-bottom: 5px;
+    }
+
+    /* ======================== */
+    /* 3. About / О себе */
+    /* ======================== */
+    #about {
+        padding-top: 100px;
+    }
+
+    #about h2 {
+        position: static;
+        margin-left: 0;
+        padding-left: 0;
+    }
+    #about h2::before {
+        content: none;
+    }
+
+    #about p {
+        max-width: 700px;
+        margin-bottom: 20px;
+    }
+
+    #about h3 {
+        margin-top: 40px;
+        color: var(--color-text);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 1.2rem;
+    }
+
+    #about ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    #about li {
+        font-weight: 300;
+        transition: color 0.1s linear;
+    }
+    #about li::before {
+        content: "— ";
+        color: var(--color-accent);
+    }
+    #about li:hover {
+        color: var(--color-text);
+    }
+
+    /* ======================== */
+    /* 4. Skills (Flexbox, Резкие углы, Оптимизированный gap) */
+    /* ======================== */
+    #skills .skills-list {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        /* Оптимизированный отступ */
+        gap: 20px;
+        padding: 0;
+    }
+
+    #skills .skills-list > div {
+        background-color: var(--color-secondary);
+        padding: 30px;
+        border: 2px solid var(--color-border);
+
+        flex: 0 1 250px;
+        min-height: 100px;
+
+        border-radius: 0; /* Острые углы */
+        display: block;
+        text-align: left;
+
+        font-size: 0.9em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        /* Резкий переход */
+        transition: transform 0.1s linear, border-color 0.1s linear, background-color 0.1s linear;
+    }
+    #skills .skills-list > div:hover {
+        transform: scale(1.01);
+        border-color: var(--color-text);
+        background-color: var(--color-hover-bg);
+        box-shadow: none; /* Убран эффект свечения */
+    }
+
+    /* ======================== */
+    /* 5. Portfolio (Grid & Асимметрия, Резкие углы) */
+    /* ======================== */
+    #portfolio .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 50px;
+    }
+
+    .portfolio-item {
+        background-color: var(--color-secondary);
+        padding: 40px 30px;
+        border: 2px solid var(--color-border);
+        box-shadow: none;
+
+        border-radius: 0;
+
+        transition: all 0.1s linear;
+    }
+
+    /* Асимметрия: третий элемент занимает 2 колонки */
+    .portfolio-item:nth-child(3) {
+        grid-column: span 2;
+        border-radius: 0;
+    }
+    .portfolio-item:nth-child(3) h3 {
+        font-size: 1.5rem;
+    }
+
+    .portfolio-item:hover {
+        background-color: var(--color-hover-bg);
+        box-shadow: none;
+        border: 2px solid var(--color-text);
+        transform: translateY(-2px);
+    }
+
+    .portfolio-item h3 {
+        font-size: 1.1em;
+        margin-top: 0;
+        color: var(--color-text);
+        text-transform: uppercase;
+    }
+
+    .portfolio-item p {
+        font-size: 0.9em;
+        color: var(--color-accent);
+    }
+
+
+    /* ======================== */
+    /* 6. Contacts & Footer (Асимметрия справа) */
+    /* ======================== */
+    #contacts address {
+        text-align: right;
+        font-style: normal;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 15px;
+        max-width: 400px;
+        margin-left: auto;
+    }
+
+    /* Заголовок Contacts (Brutalism: сдвинут вправо) */
+    #contacts h2 {
+        margin-left: auto;
+        margin-right: -40px;
+        padding-right: 40px;
+        padding-left: 0;
+        text-align: right;
+    }
+
+    /* Линия-разделитель для Contacts */
+    #contacts h2::before {
+        left: unset;
+        right: 0;
+    }
+
+
+    footer {
+        background-color: var(--color-secondary);
+        color: var(--color-accent);
+        text-align: center;
+        padding: 25px 0;
+        border-top: 1px solid var(--color-border);
+        font-size: 0.8em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    footer a {
+        color: var(--color-accent);
+        margin-left: 15px;
+    }
+    footer a:hover {
+        color: var(--color-text);
+    }
+
+
+    /* ======================== */
+    /* 7. Адаптивность (Media Queries) */
+    /* ======================== */
+
+    /* ----------------------- */
+    /* Tablet (768px - 1000px) */
+    /* ----------------------- */
+    @media (min-width: 768px) and (max-width: 1000px) {
+
+        .container {
+            padding: 0 20px;
+        }
+
+        main .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        h2 {
+            margin-left: -20px;
+            padding-left: 20px;
+            font-size: 2rem;
+        }
+
+        /* Корректируем Contact H2 */
+        #contacts h2 {
+            margin-right: -20px;
+            padding-right: 20px;
+        }
+
+        /* Portfolio: 2 колонки на планшете */
+        #portfolio .portfolio-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        /* Асимметрия третьего элемента */
+        .portfolio-item:nth-child(3) {
+            grid-column: span 2;
+        }
+
+        /* Skills: 2 карточки в ряд */
+        #skills .skills-list {
+            justify-content: space-around;
+        }
+        #skills .skills-list > div {
+            flex: 0 1 calc(50% - 10px);
+        }
+    }
+
+    /* ----------------------- */
+    /* Mobile (≤ 767px) */
+    /* ----------------------- */
+    @media (max-width: 767px) {
+
+        /* Возвращаем стандартные отступы */
+        .container,
+        main .container {
+            padding: 0 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        /* Header: Складываем элементы вертикально */
+        header .container {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+        }
+        header::after {
+            content: none;
+        }
+
+        /* Навигация: Ссылки вертикально */
+        nav ul {
+            flex-direction: column;
+            gap: 0;
+            width: 100%;
+        }
+        nav li {
+            padding: 5px 0;
+            border-bottom: 1px dashed var(--color-border);
+        }
+        nav li:last-child {
+            border-bottom: none;
+        }
+        nav a {
+            display: block;
+        }
+
+        /* Заголовки: центрирование и убираем сдвиг */
+        h2 {
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 0;
+            padding-right: 0;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+        }
+        h2::before {
+            left: 0;
+            right: unset;
+            width: 100%;
+        }
+        #about h2 {
+            position: static;
+            text-align: center;
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        /* Контакты: центрируем */
+        #contacts h2 {
+            margin-left: 0;
+            margin-right: 0;
+            text-align: center;
+        }
+        #contacts address {
+            align-items: center;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        /* Skills: 1 карточка в ряд */
+        #skills .skills-list {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 15px;
+        }
+        #skills .skills-list > div {
+            flex: 1 1 100%;
+        }
+
+        /* Portfolio: 1 колонка в ряд, убираем асимметрию */
+        #portfolio .portfolio-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .portfolio-item,
+        .portfolio-item:nth-child(3) {
+            grid-column: span 1;
+        }
+    }
     border-top: 2px solid var(--color-border);
     z-index: -1;
 }
@@ -495,190 +991,109 @@ footer a:hover {
         grid-column: span 1;
     }
 }
-/* ======================== */
-/* 8. Новые стили для jQuery-функционала */
-/* ======================== */
+/* ===== ДОБАВЛЕННЫЕ СТИЛИ ДЛЯ ЛР2 ===== */
 
-/* --- Стили для Модального окна (Форма обратной связи) --- */
-.modal-overlay {
-    display: none; /* Скрыто по умолчанию */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.9); /* Темный оверлей */
-    backdrop-filter: blur(2px);
-}
-
-.modal-content {
-    background-color: var(--color-secondary);
-    border: 2px solid var(--color-border);
-    margin: 10% auto; /* Центрирование */
-    padding: 40px;
-    width: 80%;
-    max-width: 500px;
-    position: relative;
-    border-radius: 0;
-}
-
-.close-modal {
-    color: var(--color-accent);
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    line-height: 1;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
-.close-modal:hover,
-.close-modal:focus {
-    color: var(--color-text);
-}
-
-/* Стили формы */
-#contactForm input[type="text"],
-#contactForm input[type="email"],
-#contactForm textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0 20px 0;
-    display: inline-block;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-primary);
-    color: var(--color-text);
-    box-sizing: border-box;
-    font-family: var(--font-primary);
-    border-radius: 0;
-}
-
-#contactForm button {
-    background-color: var(--color-accent);
-    color: var(--color-primary);
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-family: var(--font-primary);
-    transition: all 0.1s linear;
-    border-radius: 0;
-}
-
-#contactForm button:hover {
-    opacity: 1;
-    background-color: var(--color-text);
-}
-
-.error-field {
-    border: 1px solid #ff0000 !important; /* Красная рамка для ошибки */
-}
-
-
-/* --- Стили для Карусели Навыков --- */
-.skills-carousel {
-    overflow: hidden; /* Скрываем элементы, не поместившиеся в видимую область */
-}
-
-.skills-carousel .skills-list {
-    display: flex; /* Используем flexbox для горизонтального расположения */
-    flex-wrap: nowrap; /* Важно: запрещаем перенос, чтобы они шли в один ряд */
-    transition: transform 0.4s ease-in-out; /* Плавный переход для скролла */
-    gap: 20px;
-}
-
-.skills-carousel .skills-list > div {
-    flex: 0 0 auto; /* Не сжимать и не растягивать, размер задан content'ом */
-    min-width: 250px; /* Фиксируем ширину для карусели */
-    /* Важно: удаляем старый flex: 0 1 250px; если он мешает.
-       Стили из #skills .skills-list > div остаются, но flex-grow/shrink меняется */
-}
-
-.carousel-nav {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.carousel-nav button {
+/* Выпадающее меню */
+.menu-toggle {
+    display: none;
     background: none;
-    border: 1px solid var(--color-border);
-    color: var(--color-accent);
-    padding: 10px 15px;
-    margin: 0 10px;
+    border: none;
+    font-size: 24px;
     cursor: pointer;
-    text-transform: uppercase;
-    font-family: var(--font-primary);
-    transition: all 0.1s linear;
-    border-radius: 0;
+}
+@media (max-width: 767px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .menu-toggle {
+        display: block;
+    }
 }
 
-.carousel-nav button:hover {
-    border-color: var(--color-text);
-    color: var(--color-text);
+/* Модальное окно */
+.overlay {
+    display: none;
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    background: #fff;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    z-index: 1001;
+}
+.modal .close {
+    position: absolute;
+    top: 10px; right: 15px;
+    cursor: pointer;
+    font-size: 20px;
 }
 
-/* --- Стили для Кнопки "Вверх" --- */
-#scrollToTop {
-    display: none; /* Скрыта по умолчанию */
+/* Ответ формы */
+.form-response {
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+}
+
+/* Карусель */
+.portfolio-carousel {
+    position: relative;
+    overflow: hidden;
+    max-width: 800px;
+    margin: auto;
+}
+.portfolio-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.portfolio-item {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #333;
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    padding: 5px 10px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+/* Back to top */
+.back-to-top {
+    display: none;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 99;
+    font-size: 20px;
+    background: #333;
+    color: #fff;
     border: none;
-    outline: none;
-    background-color: var(--color-accent);
-    color: var(--color-primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
-    padding: 15px;
-    font-size: 18px;
-    border-radius: 0;
-    font-weight: 700;
-    transition: background-color 0.1s linear;
-}
-
-#scrollToTop:hover {
-    background-color: var(--color-text);
-}
-
-
-/* --- Мобильное меню (гамбургер) --- */
-/* Скрываем кнопку на больших экранах */
-#mobileMenuButton {
-    display: none;
-    background: none;
-    border: 1px solid var(--color-accent);
-    color: var(--color-accent);
-    padding: 5px 10px;
-    font-size: 1.5em;
-    cursor: pointer;
-    margin-left: auto;
-    transition: all 0.1s linear;
-}
-
-#mobileMenuButton:hover {
-    border-color: var(--color-text);
-    color: var(--color-text);
-}
-
-@media (max-width: 767px) {
-    /* На мобильных: показываем кнопку, скрываем ul в навбаре */
-    #mobileMenuButton {
-        display: block;
-    }
-    nav ul {
-        display: none; /* Будет показано через jQuery */
-    }
-
-    /* Корректировка стилей кнопки Оставить сообщение */
-    #openModalButton {
-        width: 100%;
-    }
 }

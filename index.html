@@ -3,149 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сергиенко Александр | Портфолио</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
+    <title>Мой сайт-визитка</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
     <div class="container">
-        <h1>Сергиенко Александр</h1>
-
-        <button id="mobileMenuButton">&#9776;</button>
-        <nav>
-            <ul>
-                <li><a href="#about" class="nav-link active">О СЕБЕ</a></li>
-                <li><a href="#skills" class="nav-link">НАВЫКИ</a></li>
-                <li><a href="#portfolio" class="nav-link">ПОРТФОЛИО</a></li>
-                <li><a href="#contacts" class="nav-link">КОНТАКТЫ</a></li>
-            </ul>
-        </nav>
-    </div>
+    <h1>Сергиенко Александр</h1>
+    <button class="menu-toggle">☰</button>
+    <nav>
+        <ul>
+            <li><a href="#about">О себе</a></li>
+            <li><a href="#skills">Навыки</a></li>
+            <li><a href="#portfolio">Портфолио</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+        </ul>
+    </nav>
 </header>
 
-<main>
-
-    <section id="about" class="section">
-        <div class="container">
-            <h2>О СЕБЕ</h2>
-            <p>
-                Front-End разработчик, ориентированный на создание функциональных пользовательских интерфейсов. Глубоко убежден, что дизайн должен быть не просто красивым, но и идеологически выдержанным, что привело меня к изучению концепций в вебе.
-            </p>
-            <p>
-                В работе ценю четкость, минимализм и внимание к типографике. Основной фокус на пользовательских ощущениях и обеспечении максимальной доступности и производительности.
-            </p>
-
-            <h3>ЦЕЛИ</h3>
-            <ul>
-                <li>Углубленное изучение Web-разработки.</li>
-                <li>Освоение бэкэнд-разработки для создания full-stack продуктов.</li>
-                <li>Изучение Web-дизайна.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="skills" class="section">
-        <div class="container">
-            <h2>НАВЫКИ</h2>
-
-            <div class="carousel-container">
-                <div class="skills-carousel">
-
-                    <div class="skills-list">
-                        <div>HTML5: УРОВЕНЬ 2/5</div>
-                        <div>CSS3: УРОВЕНЬ 3/5 (FLEXBOX, GRID)</div>
-                        <div>GIT/GITHUB: УРОВЕНЬ 3/5</div>
-                        <div>JAVASCRIPT: УРОВЕНЬ 2/5 (АКТИВНО ИЗУЧАЮ)</div>
-                        <div>АДАПТИВНАЯ ВЕРСТКА</div>
-                        <div>КРОССБРАУЗЕРНОСТЬ</div>
-                    </div>
-
-                </div>
-                <div class="carousel-nav">
-                    <button id="prevSkill">← ПРЕДЫДУЩИЙ</button>
-                    <button id="nextSkill">СЛЕДУЮЩИЙ →</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="portfolio" class="section">
-        <div class="container">
-            <h2>ПОРТФОЛИО</h2>
-            <div class="portfolio-grid">
-            </div>
-        </div>
-    </section>
-
-    <section id="contacts" class="section">
-        <div class="container">
-            <h2>КОНТАКТЫ</h2>
-            <address>
-                <a href="mailto:alexander.s.sergienko@gmail.com">alexander.s.sergienko@gmail.com</a>
-                <a href="tel:+79588514488">+7-(958)-851-44-88</a>
-                <a href="https://t.me/SERK4S" target="_blank">TELEGRAM</a>
-                <a href="https://github.com/serk4s" target="_blank">GITHUB</a>
-
-                <button id="openModalButton" style="
-                    /* Используем встроенные стили, чтобы не портить внешний вид */
-                    background: none;
-                    border: 2px solid var(--color-accent);
-                    color: var(--color-accent);
-                    padding: 10px 20px;
-                    margin-top: 15px;
-                    cursor: pointer;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                    font-family: var(--font-primary);
-                    transition: all 0.1s linear;
-                ">ОСТАВИТЬ СООБЩЕНИЕ</button>
-
-            </address>
-        </div>
-    </section>
-
-</main>
-
-<footer>
+<!-- ABOUT -->
+<section id="about" class="section">
     <div class="container">
-        © 2025. СЕРГИЕНКО АЛЕКСАНДР | БУДУЩИЙ FULL-STACK (может быть)
+        <h2>О СЕБЕ</h2>
+        <p>
+            Front-End разработчик, ориентированный на создание функциональных пользовательских интерфейсов. Глубоко убежден, что дизайн должен быть не просто красивым, но и идеологически выдержанным, что привело меня к изучению концепций в вебе.
+        </p>
+        <p>
+            В работе ценю четкость, минимализм и внимание к типографике. Основной фокус на пользовательских ощущениях и обеспечении максимальной доступности и производительности.
+        </p>
+
+        <h3>ЦЕЛИ</h3>
+        <ul>
+            <li>Углубленное изучение Web-разработки.</li>
+            <li>Освоение бэкэнд-разработки для создания full-stack продуктов.</li>
+            <li>Изучение Web-дизайна.</li>
+        </ul>
     </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+    <div class="container">
+        <h2>НАВЫКИ</h2>
+        <div class="skills-list">
+            <div>HTML5: УРОВЕНЬ 2/5</div>
+            <div>CSS3: УРОВЕНЬ 3/5 (FLEXBOX, GRID)</div>
+            <div>GIT/GITHUB: УРОВЕНЬ 3/5</div>
+            <div>JAVASCRIPT: УРОВЕНЬ 2/5 (АКТИВНО ИЗУЧАЮ)</div>
+            <div>АДАПТИВНАЯ ВЕРСТКА</div>
+            <div>КРОССБРАУЗЕРНОСТЬ</div>
+        </div>
+    </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="section">
+    <div class="container">
+    <h2>Портфолио</h2>
+    <div class="portfolio-carousel">
+        <button class="carousel-btn prev">‹</button>
+        <div class="portfolio-wrapper"></div>
+        <button class="carousel-btn next">›</button>
+    </div>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts" class="section">
+    <div class="container">
+        <h2>КОНТАКТЫ</h2>
+        <address>
+            <a href="mailto:your.email@example.com">alexander.s.sergienko@gmail.com</a>
+            <a href="tel:+79588514488">+7-(958)-851-44-88</a>
+            <a href="https://t.me/SERK4S" target="_blank">TELEGRAM</a>
+            <a href="https://github.com/serk4s" target="_blank">GITHUB</a>
+        </address>
+    </div>
+    <button id="openModal">Написать мне</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2025 Мой сайт</p>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawR/h/+K97JvM/WpGj/6T5z4pC/J+e+rB/pY="
-        crossorigin="anonymous"></script>
-
-<script src="js/script.js"></script>
-
-<button id="scrollToTop" title="Наверх">▲</button>
-
-
-<div id="contactModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h2>ФОРМА ОБРАТНОЙ СВЯЗИ</h2>
-
-        <form id="contactForm">
-            <label for="name">Имя*:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">Email*:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="message">Сообщение:</label>
-            <textarea id="message" name="message"></textarea>
-
-            <button type="submit" id="submitButton">ОТПРАВИТЬ</button>
-            <p id="formStatus" style="display: none; margin-top: 15px; font-size: 0.9em;"></p>
-        </form>
-
-    </div>
+<!-- MODAL -->
+<div class="overlay"></div>
+<div class="modal">
+    <span class="close">&times;</span>
+    <h3>Форма обратной связи</h3>
+    <form id="contactForm">
+        <label>Имя:<br><input type="text" name="name" required></label>
+        <label>Email:<br><input type="email" name="email" required></label>
+        <label>Сообщение:<br><textarea name="message" required></textarea></label>
+        <button type="submit">Отправить</button>
+    </form>
+    <div class="form-response"></div>
 </div>
 
+<!-- BACK TO TOP -->
+<button class="back-to-top">↑</button>
+
+<script src="js/script.js"></script>
 </body>
 </html>

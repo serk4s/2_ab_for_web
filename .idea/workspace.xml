@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc99848f-6a53-4ed9-9966-8c8af1c76b7d" name="Changes" comment=".">
+    <list default="true" id="cc99848f-6a53-4ed9-9966-8c8af1c76b7d" name="Changes" comment="Внесены правки модального окна, теперь эта функция работает">
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/portfolio.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/portfolio.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/script.js" afterDir="false" />
     </list>
@@ -100,7 +100,7 @@
       <workItem from="1759302166443" duration="2807000" />
       <workItem from="1759409367902" duration="100000" />
       <workItem from="1759409481760" duration="44000" />
-      <workItem from="1759409535863" duration="3625000" />
+      <workItem from="1759409535863" duration="5550000" />
     </task>
     <task id="LOCAL-00001" summary="первый комит">
       <option name="closed" value="true" />
@@ -134,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759060303360</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Дело пошло">
+      <option name="closed" value="true" />
+      <created>1759414471641</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1759414471641</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,6 +163,8 @@
     <MESSAGE value="первый комит" />
     <MESSAGE value="улучшенная версия, но нет портфолио" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Дело пошло" />
+    <MESSAGE value="Внесены правки модального окна, теперь эта функция работает" />
+    <option name="LAST_COMMIT_MESSAGE" value="Внесены правки модального окна, теперь эта функция работает" />
   </component>
 </project>

@@ -21,44 +21,60 @@ $(document).ready(function() {
     });
 
     /* ===== Форма обратной связи ===== */
-    $("#contactForm").submit(function(e) {
-        e.preventDefault();
-        const name = $("input[name='name']").val().trim();
-        const email = $("input[name='email']").val().trim();
-        const message = $("textarea[name='message']").val().trim();
-        const response = $(".form-response");
+    // ==== Модальное окно ====
+    $(document).ready(function () {
+        // Открытие модалки
+        $("#openModal").on("click", function () {
+            $(".overlay, .contact-modal").fadeIn(300);
+        });
 
-        if (name.length < 2) {
-            response.text("Имя слишком короткое").css("color", "red");
-            return;
-        }
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-            response.text("Введите корректный email").css("color", "red");
-            return;
-        }
-        if (message.length < 10) {
-            response.text("Сообщение должно быть не менее 10 символов").css("color", "red");
-            return;
-        }
+        // Закрытие по крестику
+        $(".contact-modal .close").on("click", function () {
+            $(".overlay, .contact-modal").fadeOut(300);
+        });
 
-        response.text("Отправка...").css("color", "black");
+        // Закрытие по клику на overlay
+        $(".overlay").on("click", function () {
+            $(".overlay, .contact-modal").fadeOut(300);
+        });
 
-        $.ajax({
-            url: "/fake-endpoint",
-            method: "POST",
-            data: { name, email, message },
-            success: function() {
-                setTimeout(() => {
-                    response.text("Сообщение успешно отправлено!").css("color", "green");
-                    $("#contactForm")[0].reset();
-                }, 1000);
-            },
-            error: function() {
-                setTimeout(() => {
-                    response.text("Сообщение успешно отправлено!").css("color", "green");
-                    $("#contactForm")[0].reset();
-                }, 1000);
+        // ==== Валидация и "отправка" формы ====
+        $("#contactForm").on("submit", function (e) {
+            e.preventDefault();
+
+            let name = $("input[name='name']").val().trim();
+            let email = $("input[name='email']").val().trim();
+            let message = $("textarea[name='message']").val().trim();
+
+            // Простая валидация
+            if (!name || !email || !message) {
+                $(".form-response").text("⚠ Пожалуйста, заполните все поля.")
+                    .css("color", "red");
+                return;
             }
+            // Проверка email через regexp
+            let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+            if (!email.match(emailPattern)) {
+                $(".form-response").text("⚠ Введите корректный email.")
+                    .css("color", "red");
+                return;
+            }
+
+            // Симуляция отправки через AJAX
+            $.ajax({
+                url: "https://httpbin.org/post", // тестовый сервер
+                type: "POST",
+                data: { name, email, message },
+                success: function () {
+                    $(".form-response").text("✅ Сообщение успешно отправлено!")
+                        .css("color", "green");
+                    $("#contactForm")[0].reset();
+                },
+                error: function () {
+                    $(".form-response").text("❌ Ошибка при отправке.")
+                        .css("color", "red");
+                }
+            });
         });
     });
 

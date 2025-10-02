@@ -81,28 +81,40 @@
             <a href="https://t.me/SERK4S" target="_blank">TELEGRAM</a>
             <a href="https://github.com/serk4s" target="_blank">GITHUB</a>
         </address>
+        <button id="openModal" class="contact-btn">Написать мне</button>
     </div>
-    <button id="openModal">Написать мне</button>
 </section>
+
+<!-- MODAL -->
+<!-- Overlay -->
+<div class="overlay"></div>
+
+<!-- Модальное окно -->
+<div class="contact-modal">
+    <span class="close">&times;</span>
+    <h3>Форма обратной связи</h3>
+    <form id="contactForm">
+        <label>
+            Имя:<br>
+            <input type="text" name="name" required>
+        </label>
+        <label>
+            Email:<br>
+            <input type="email" name="email" required>
+        </label>
+        <label>
+            Сообщение:<br>
+            <textarea name="message" rows="4" required></textarea>
+        </label>
+        <button type="submit" class="send-btn">Отправить</button>
+    </form>
+    <div class="form-response"></div>
+</div>
 
 <!-- FOOTER -->
 <footer>
     <p>© 2025 Мой сайт</p>
 </footer>
-
-<!-- MODAL -->
-<div class="overlay"></div>
-<div class="modal">
-    <span class="close">&times;</span>
-    <h3>Форма обратной связи</h3>
-    <form id="contactForm">
-        <label>Имя:<br><input type="text" name="name" required></label>
-        <label>Email:<br><input type="email" name="email" required></label>
-        <label>Сообщение:<br><textarea name="message" required></textarea></label>
-        <button type="submit">Отправить</button>
-    </form>
-    <div class="form-response"></div>
-</div>
 
 <!-- BACK TO TOP -->
 <button class="back-to-top">↑</button>
